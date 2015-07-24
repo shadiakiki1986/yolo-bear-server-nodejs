@@ -15,7 +15,9 @@
   "license": "WTFPL",
   "dependencies": {
     "aws-sdk": "*",
-    "dynamodb-doc":"*"
+    "dynamodb-doc":"*",
+    "request": "*",
+    "mailgun-js":"*"
   },
   "devDependencies": {
     "mocha": "*",

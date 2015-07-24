@@ -25,7 +25,7 @@ describe('User tests', function() {
     dm.list({
       fail:function(err) { should.fail('Error: '+err);},
       succeed:function(data) {
-        data.length.should.above(-1); // not sure how to test this
+        Object.keys(data).length.should.above(-1); // not sure how to test this
         done();
       }
     });
@@ -40,7 +40,7 @@ describe('User tests', function() {
           dm.list({
             fail:function(err) { should.fail('Error: '+err);},
             succeed:function(data) {
-              var nicks = data.map(function(x) { return x.nick; });
+              var nicks = Object.keys(data).map(function(x) { return data[x].nick; });
               nicks.indexOf("some nick").should.not.eql(-1);
               done();
             }
@@ -53,18 +53,12 @@ describe('User tests', function() {
   it('putEmail invalid', function(done) {
     var dm = new User();
     dm.putEmail(
-      "whatever123", "something123", "a password",
-      "some nick", "metadata",
-      { fail:function(err) { should.fail('Error: '+err);},
-        succeed:function(data) {
-          dm.list({
-            fail:function(err) {
-              err.should.eql('Invalid email');
-              done();
-            },
-            succeed:function(data) { should.fail("Shouldnt get here"); }
-          });
-        }
+      "an email", "whatever123", "something123", "some other nick", "metadata",
+      { fail:function(err) {
+          err.should.eql('Invalid email');
+          done();
+        },
+        succeed:function(data) { should.fail("Shouldnt get here"); }
       }
     );
   });
@@ -72,19 +66,25 @@ describe('User tests', function() {
   it('putEmail valid', function(done) {
     var dm = new User();
     var myemail = "shadiakiki1986@gmail.com";
-    dm.putEmail(
-      myemail, "something123", "a password",
-      "some nick", "metadata",
+    dm.dropEmail(
+      myemail,
       { fail:function(err) { should.fail('Error: '+err);},
-        succeed:function(data) {
-          dm.list({
-            fail:function(err) { should.fail("Shouldnt get here"); },
-            succeed:function(data) {
-              var emails = data.map(function(x) { return x.email0; });
-              emails.indexOf(myemail).should.not.eql(-1);
-              done();
+        succeed: function() {
+          dm.putEmail(
+            myemail, "whatever123", "something123", "some other nick", "metadata",
+            { fail:function(err) { should.fail('Error: '+err);},
+              succeed:function(data) {
+                dm.list({
+                  fail:function(err) { should.fail("Shouldnt get here"); },
+                  succeed:function(data) {
+                    var emails = Object.keys(data).map(function(x) { return data[x].email0; });
+                    emails.indexOf(myemail).should.not.eql(-1);
+                    done();
+                  }
+                });
+              }
             }
-          });
+          );
         }
       }
     );
