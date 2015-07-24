@@ -1,0 +1,25 @@
+{
+  "name": "yolo-bear-server-nodejs",
+  "version": "1.0.0",
+  "description": "Nodejs backend for yolo-bear app",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --timeout 120000"
+  },
+  "homepage": "https://genesis.github.com",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/shadiakiki1986/yolo-bear-server-nodejs"
+  },
+  "author": "Shadi Akiki",
+  "license": "WTFPL",
+  "dependencies": {
+    "aws-sdk": "*",
+    "dynamodb-doc":"*"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "should": "*"
+  }
+}
+
