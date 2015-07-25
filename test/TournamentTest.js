@@ -67,6 +67,35 @@ describe('Tournament tests', function() {
     });
   });
 
+  it('get html', function(done) {
+    var dm = new Tournament();
+    dm.new(
+      "test 123",
+      "pass123",
+      {some:"thing"},
+      { fail: function(err) { should.fail('Error: '+err); },
+        succeed: function() {
+          dm.get(
+            "test 123",
+            { fail:function(err) { should.fail('Error: '+err);},
+              succeed:function(data,res) {
+                var re=/^<html .*<\/html>$/;
+                re.test(data).should.eql(true);
+
+                dm.drop("test 123","pass123",{
+                  fail:function(err) { should.fail("Shouldnt get here"); },
+                  succeed:function() { done(); }
+                });
+              }
+            },
+            true,
+            false,
+            true
+          );
+        }
+      }
+    );
+  });
 
 }); // end describe
 
