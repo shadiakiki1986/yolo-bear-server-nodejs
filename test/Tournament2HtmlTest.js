@@ -4,17 +4,10 @@ var should = require('should');
 
 describe('Tournament2Html tests', function() {
 
-  it('header', function(done) {
-    var th = new Tournament2Html();
-    th.header(
-      { some: "thing" },
-      { fail:function(err) { should.fail('Error: '+err);},
-        succeed:function(html) {
-          html.should.eql(false);
-          done();
-        }
-      }
-    );
+  it('header', function() {
+    var th = new Tournament2Html({ some: "thing" });
+    var html = th.header();
+    html.should.eql(false);
   });
 
 }); // end describe
