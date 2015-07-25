@@ -9,6 +9,8 @@ This nodejs version can run on aws lambda instead of aws ec2
 
     #set($inputRoot = $input.path('$'))
     {
-    "tournamentName": "\""+$input.params('tournamentName')+"\"",
-    "format": $input.params('format')
+    "tournamentName": "$input.params('tournamentName')",
+    "format": "$input.params('format')"
     }
+* Reference: http://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html
+* Note: Even though placing $input... in double quotes colors it in green in the editor (thus implying that it will be converted to text instead of evaluated), it really does get evaluated
