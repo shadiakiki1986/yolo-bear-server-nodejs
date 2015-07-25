@@ -41,7 +41,7 @@ upsertFunction() {
       --role arn:aws:iam::886436197218:role/lambda_dynamo \
       --handler node_modules/app/$2 \
       --description "$3" \
-      --timeout 30 > /dev/null
+      --timeout 3 > /dev/null
   else
     echo "Creating function $1"
     aws lambda create-function \
@@ -50,7 +50,7 @@ upsertFunction() {
       --role arn:aws:iam::886436197218:role/lambda_dynamo \
       --handler node_modules/app/$2 \
       --description "$3" \
-      --timeout 30 \
+      --timeout 3 \
       --code S3Bucket="zboota-server",S3Key="lambda-zip/yolo-bear-server-nodejs.zip" > /dev/null
   fi
 }
