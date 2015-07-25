@@ -72,7 +72,10 @@ describe('Tournament tests', function() {
     dm.new(
       "test 123",
       "pass123",
-      {some:"thing"},
+      { teams: [],
+        players: [],
+        games: []
+      },
       { fail: function(err) { should.fail('Error: '+err); },
         succeed: function() {
           dm.get(
